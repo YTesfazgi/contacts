@@ -1,0 +1,20 @@
+{
+  "name": "contact_list",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "type": "module",
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@fastify/formbody": "^7.2.0",
+    "@fastify/postgres": "^5.1.0",
+    "@fastify/static": "^6.5.0",
+    "fastify": "^4.6.0",
+    "fastify-formbody": "^5.3.0",
+    "pg": "^8.8.0"
+  }
+}

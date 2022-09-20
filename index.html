@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Contact List</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+	<script src="index.js"></script>
+
+    <h1>Contact List</h1>
+    <p>Add your contacts to keep track of their birthdays!</p>
+
+    <form action="http://localhost:3000/add-contact" method="post" class="add-contact">
+        <div class="add-contact">
+          <label for="name">Enter contact name: </label>
+          <input type="text" name="name" id="name" required>
+        </div>
+        <div class="add-contact">
+          <label for="birthday">Enter contact birthday: </label>
+          <input type="date" name="birthday" id="birthday" required>
+        </div>
+        <div class="add-contact">
+            <label for="name">Enter contact relationship: </label>
+            <input type="text" name="relationship" id="relationship" required>
+        </div>
+        <div class="add-contact">
+          <input type="submit" value="Add Contact">
+        </div>
+      </form>
+
+  </body>
+</html>
