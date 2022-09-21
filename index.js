@@ -3,6 +3,8 @@ import Fastify from 'fastify'
 import fastifyFormbody from '@fastify/formbody'
 import fastifyStatic from '@fastify/static'
 import fastifyPostgres from '@fastify/postgres'
+import fastifyView from '@fastify/view'
+import Handlebars from 'handlebars'
 
 const fastify = Fastify({
   logger: true
@@ -15,7 +17,12 @@ fastify.register(fastifyStatic, {
 })
 fastify.register(fastifyPostgres, {
     connectionString: 'postgres://postgres@localhost/test'
-})  
+})
+fastify.register(fastifyView, {
+    engine: {
+      handlebars: Handlebars,
+    },
+  });
 
 // Route declarations
 fastify.get('/', function (request, reply) {
@@ -26,12 +33,22 @@ fastify.post('/add-contact', function (req, reply) {
     fastify.pg.query(
       'INSERT INTO contacts(name, birthday, relationship) VALUES ($1, $2, $3)', 
       [req.body.name, req.body.birthday, req.body.relationship],
-      function onResult (err, result) {
-        reply.send(err || result)
+      function onResult(err, result) {
+        reply.redirect('/')
       }
     )
-    reply.redirect('/')
 })  
+
+fastify.get('/contacts', function(req, reply) {
+    fastify.pg.query(
+        'select * from contacts', 
+        function onResult(err, result) {
+            console.log(result.rows)
+            reply.header('Content-Type', 'text/html')
+            reply.view("./views/contacts.hbs", { contacts: result.rows })
+        }
+    ) 
+})
 
 // Run server
 fastify.listen({ port: 3000 }, function (err, address) {
