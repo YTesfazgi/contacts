@@ -41,9 +41,14 @@ fastify.post('/add-contact', function (req, reply) {
 
 fastify.get('/contacts', function(req, reply) {
     fastify.pg.query(
-        'select * from contacts', 
+        `
+        SELECT
+          name,
+          relationship,
+          to_char(birthday, 'MM/DD/YYYY') as bday
+        FROM contacts
+        `,
         function onResult(err, result) {
-            console.log(result.rows)
             reply.header('Content-Type', 'text/html')
             reply.view("./views/contacts.hbs", { contacts: result.rows })
         }
